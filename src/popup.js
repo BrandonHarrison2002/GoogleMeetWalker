@@ -1,6 +1,4 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+
 
 /**
  * Get the current URL.
@@ -23,12 +21,12 @@ function getCurrentTabUrl(callback) {
 }
 
 
-function changeBackgroundColor(color) {
-  var script = 'document.body.style.backgroundColor="' + color + '";';
-  chrome.tabs.executeScript({
-    code: script
-  });
-}
+// function changeBackgroundColor(color) {
+//   var script = 'document.body.style.backgroundColor="' + color + '";';
+//   chrome.tabs.executeScript({
+//     code: script
+//   });
+// }
 
 function getSavedBackgroundColor(url, callback) {
   chrome.storage.sync.get(url, (items) => {
@@ -55,12 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     getSavedBackgroundColor(url, (savedColor) => {
       if (savedColor) {
-        changeBackgroundColor(savedColor);
+        // changeBackgroundColor(savedColor);
         dropdown.value = savedColor;
       }
     });
     dropdown.addEventListener('change', () => {
-      changeBackgroundColor(dropdown.value);
+      // changeBackgroundColor(dropdown.value);
       saveBackgroundColor(url, dropdown.value);
     });
   });
