@@ -1,0 +1,13 @@
+{
+    "name": "Google Meet",
+    "version": "1.0",
+    "description": "This is a program written for getting to class on time for students who are forgetful",
+    "background": {
+      "scripts": ["dist/index.js"],
+      "persistent": false
+    },
+    "page_action": {
+      "default_popup": "src/popup.html"
+    },
+    "manifest_version": 2
+  }
