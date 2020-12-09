@@ -2,39 +2,29 @@
 <html>
 
 <head>
-  <title>Getting Started Extension's Popup</title>
-  <style type="text/css">
-    body {
-      margin: 10px;
-      white-space: nowrap;
-    }
-
-    h1 {
-      font-size: 15px;
-    }
-
-    #container {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+  <title style=background-color:#FFF>Alarms Popup</title>
+  <style>
+    .button {
+      background-color: #F55;
+      border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
     }
   </style>
-
   <script src="popup.js"></script>
 </head>
 
-<body>
-  <h1>Background Color Changer</h1>
-  <div id="container">
-    <span>Choose a color</span>
-    <select id="dropdown">
-      <option selected disabled hidden value=''></option>
-      <option value="white">White</option>
-      <option value="pink">Pink</option>
-      <option value="green">Green</option>
-      <option value="yellow">Yellow</option>
-    </select>
-  </div>
+<body style=background-color:#333>
+  <h1 style=color:#F00>GoogleMeetWalker</h1>
+  <div id = 'before'></div>
+  <button class = 'button' id="button1">Add Class</button>
+  <button class = 'button' id="button2">Delete Class</button>
 </body>
 
 </html>

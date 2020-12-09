@@ -1,65 +1,56 @@
-
-
-/**
- * Get the current URL.
- *
- * @param {function(string)} callback called when the URL of the current tab
- *   is found.
- */
-function getCurrentTabUrl(callback) {
-  var queryInfo = {
-    active: true,
-    currentWindow: true
-  };
-
-  chrome.tabs.query(queryInfo, (tabs) => {
-    var tab = tabs[0];
-    var url = tab.url;
-    console.assert(typeof url == 'string', 'tab.url should be a string');
-    callback(url);
-  });
+function createClassRoom() {
+  let c = 'Class' + i
+  let form = document.createElement('form');
+  form.id = `${c}Form`
+  form.innerHTML = `<fieldset id = '${c}Field' style = border-color:#F00> 
+    <legend style = color:#F00>${c}</legend>
+    <p>
+      <input type = "text"
+            id = "${c}Text"
+            value = "enter meet link" />
+      <input type = "text"
+            id = "${c}Time"
+            value = "enter time" />
+    </p>
+  </fieldset>`
+  document.getElementById('before').appendChild(form);
 }
 
-
-// function changeBackgroundColor(color) {
-//   var script = 'document.body.style.backgroundColor="' + color + '";';
-//   chrome.tabs.executeScript({
-//     code: script
-//   });
-// }
-
-function getSavedBackgroundColor(url, callback) {
-  chrome.storage.sync.get(url, (items) => {
-    callback(chrome.runtime.lastError ? null : items[url]);
-  });
+function deleteClassRoom() {
+  let field = document.getElementById(`Class${i}Field`)
+  field.remove()
 }
+var i = 0;
+var alarmClock = {
 
-/**
- * Sets the given background color for url.
- *
- * @param {string} url URL for which background color is to be saved.
- * @param {string} color The background color to be saved.
- */
-function saveBackgroundColor(url, color) {
-  var items = {};
-  items[url] = color;
-  chrome.storage.sync.set(items);
-}
+  onHandler: function (e) {
+    chrome.alarms.create("myAlarm", { delayInMinutes: 0.1, periodInMinutes: 0.2 });
+    window.close();
+  },
 
-document.addEventListener('DOMContentLoaded', () => {
-  getCurrentTabUrl((url) => {
-    console.log(url)
-    var dropdown = document.getElementById('dropdown');
+  offHandler: function (e) {
+    chrome.alarms.clear("myAlarm");
+    window.close();
+  },
 
-    getSavedBackgroundColor(url, (savedColor) => {
-      if (savedColor) {
-        // changeBackgroundColor(savedColor);
-        dropdown.value = savedColor;
+  setup: function () {
+    // let c1 = 'Class1';
+    // createClassRoom(c1);
+    document.getElementById('button1').onclick = function () {
+      i++;
+      createClassRoom();
+    }    
+    document.getElementById('button2').onclick = function () {
+      if(i > 0 ){
+        deleteClassRoom();
+        i--;
       }
-    });
-    dropdown.addEventListener('change', () => {
-      // changeBackgroundColor(dropdown.value);
-      saveBackgroundColor(url, dropdown.value);
-    });
-  });
+    }
+    
+  }
+};
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  alarmClock.setup();
 });
