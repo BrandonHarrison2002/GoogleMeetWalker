@@ -7,13 +7,22 @@ function createClassRoom() {
     <p>
       <input type = "text"
             id = "${c}Text"
-            value = "enter meet link" />
+            value = ""
+            placeholder="Meet Link"/>
       <input type = "text"
             id = "${c}Time"
-            value = "enter time" />
+            value = "" 
+            placeholder="Enter Time"/>
     </p>
   </fieldset>`
   document.getElementById('before').appendChild(form);
+  let key = `${c}Text`
+  document.getElementById(key).addEventListener("change", function (){
+    console.log(`Stored ${key}`)
+    chrome.storage.local.set({key: document.getElementById(key).value}, function() {
+      
+    });
+  });
 }
 
 function deleteClassRoom() {
@@ -37,8 +46,14 @@ var alarmClock = {
     // let c1 = 'Class1';
     // createClassRoom(c1);
     document.getElementById('button1').onclick = function () {
-      i++;
-      createClassRoom();
+      if(i == 0){
+        i++;
+        createClassRoom();
+      }
+      else if(document.getElementById(`Class${i}Text`).value.length >= "https://meet.google.com/".length){
+        i++;
+        createClassRoom();
+      }
     }    
     document.getElementById('button2').onclick = function () {
       if(i > 0 ){
